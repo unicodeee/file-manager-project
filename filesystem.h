@@ -53,5 +53,28 @@ extern int current_directory;
 extern OpenFileState open_file;
 
 bool verify_layout(void);
+bool initDisk(void);
+void initDir(int sector_number, int back_sector);
+
+int findEntry(int directory_sector, const char *name, int *entry_sector,
+              int *entry_index);
+bool createObject(char type, const char *name);
+bool deleteObject(const char *name);
+void listDirectory(void);
+bool changeDirectory(const char *name);
+void goRoot(void);
+
+bool buildList(void);
+int Remove(void);
+bool Insert(int sector_number);
+void cleanupStorage(void);
+
+bool openFile(char mode, const char *name);
+void closeFile(void);
+bool readFile(size_t byte_count);
+bool writeFile(size_t byte_count, const char *data);
+bool seekFile(size_t position);
+
+void runCommandLoop(void);
 
 #endif

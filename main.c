@@ -20,12 +20,28 @@ bool verify_layout(void)
     return true;
 }
 
+bool initDisk(void)
+{
+    initDir(0, -1);
+    current_directory = 0;
+    open_file = (OpenFileState){false, -1, -1, '\0', 0};
+    return buildList();
+}
+
 int main(void)
 {
     if (!verify_layout()) {
         return 1;
     }
 
-    puts("File manager scaffold is ready.");
+    if (!initDisk()) {
+        fputs("Unable to initialize the simulated disk.\n", stderr);
+        cleanupStorage();
+        return 1;
+    }
+
+    puts("Simplified file system ready. Enter EXIT to quit.");
+    runCommandLoop();
+    cleanupStorage();
     return 0;
 }
