@@ -1,0 +1,5 @@
+file-manager
+*.o
+*.out
+*.dSYM/
+.DS_Store
