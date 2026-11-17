@@ -12,12 +12,47 @@ The target environment is Linux with a C11 compiler.
 
 ```sh
 make
-./file-manager
+./project create u A
 ```
 
 Use `make clean` to remove generated files. The current program is a compiling
 scaffold: initialization and free-list basics work, while unfinished operations
 are marked with `TODO(Member N)` comments.
+
+## Command convention
+
+Start the program with one command after `./project`. Use lowercase command,
+type, and mode arguments; file and directory names may use uppercase letters.
+For example, this starts the in-memory file system and submits a request to
+create a regular file named `A`:
+
+```sh
+./project create u A
+```
+
+The startup command is processed before the interactive prompt appears, so the
+same in-memory file system remains available for additional commands. Running
+`./project` without arguments starts directly at the `project>` prompt.
+
+| Operation | Convention |
+| --- | --- |
+| Create a regular file | `./project create u A` |
+| Create a directory | `./project create d DOCS` |
+| Delete an entry | `./project delete A` |
+| Open for input/output/update | `./project open i A`, `./project open o A`, or `./project open u A` |
+| Close the open file | `./project close` |
+| Read bytes | `./project read 100` |
+| Write bytes | `./project write 5 HELLO` |
+| Seek | `./project seek 600` |
+| List the current directory | `./project dir` |
+| Change directory | `./project cd DOCS` |
+| Return to root | `./project root` |
+| Exit | `./project exit` |
+
+Inside the interactive prompt, use the same convention without the
+`./project` prefix, for example `create u A`. Names remain limited to eight
+characters. When writing data that contains spaces, quote it in command-line
+mode, for example `./project write 6 " WORLD"`.
 
 ## Project files
 
@@ -130,5 +165,5 @@ Before pushing, run:
 ```sh
 make clean
 make
-printf 'EXIT\n' | ./file-manager
+printf 'exit\n' | ./project
 ```
