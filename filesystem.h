@@ -75,6 +75,7 @@ bool readFile(size_t byte_count);
 bool writeFile(size_t byte_count, const char *data);
 bool seekFile(size_t position);
 
+bool runCommandArgs(int argc, char *argv[]);
 void runCommandLoop(void);
 
 #endif

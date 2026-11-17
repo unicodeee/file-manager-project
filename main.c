@@ -28,8 +28,10 @@ bool initDisk(void)
     return buildList();
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
+    bool keep_running = true;
+
     if (!verify_layout()) {
         return 1;
     }
@@ -40,8 +42,14 @@ int main(void)
         return 1;
     }
 
-    puts("Simplified file system ready. Enter EXIT to quit.");
-    runCommandLoop();
+    puts("Simplified file system ready. Enter exit to quit.");
+    if (argc > 1) {
+        keep_running = runCommandArgs(argc - 1, &argv[1]);
+    }
+    if (keep_running) {
+        runCommandLoop();
+    }
+
     cleanupStorage();
     return 0;
 }
