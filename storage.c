@@ -1,6 +1,7 @@
 #include "filesystem.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 bool buildList(void)
 {
@@ -55,6 +56,38 @@ bool Insert(int sector_number)
     node->link = free_sector_list;
     free_sector_list = node;
     return true;
+}
+
+int allocateSector(void){
+	int sector_number = Remove();
+
+	if(sector_number == -1){
+		return -1;
+	}
+
+	memset(&sector[sector_number],0,sizeof(sector[sector_number]));
+
+	sector[sector_number].data.backf = -1;
+	sector[sector_number].data.frwdf = -1;
+
+	return sector_number;
+}
+
+bool releaseSector(int sector_number){
+	if(sector_number <= 0 || sector_number >= NUM_SECTORS){
+		return false;
+	}
+
+	if(!Insert(sector_number)){
+		return false;
+	}
+
+	memset(&sector[sector_number],0,sizeof(sector[sector_number]));
+
+	sector[sector_number].data.backf = -1;
+	sector[sector_number].data.frwdf = -1;
+
+	return true;
 }
 
 void cleanupStorage(void)

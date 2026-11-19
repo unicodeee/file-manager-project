@@ -67,6 +67,8 @@ void goRoot(void);
 bool buildList(void);
 int Remove(void);
 bool Insert(int sector_number);
+int allocateSector(void);
+bool releaseSector(int sector_number);
 void cleanupStorage(void);
 
 bool openFile(char mode, const char *name);
