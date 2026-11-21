@@ -90,6 +90,59 @@ bool releaseSector(int sector_number){
 	return true;
 }
 
+bool releaseFileChain(int first_sector){
+	int chain[NUM_SECTORS];
+	bool visited[NUM_SECTORS] = {false};
+	int count = 0;
+	int current = first_sector;
+
+	while(current != -1){
+		if(current <= 0 || current >= NUM_SECTORS || visited[current] || count >= NUM_SECTORS){
+			return false;
+		}
+		visited[current] = true;
+		chain[count++] = current;
+
+		current = sector[current].data.frwdf;
+	}
+	for(int i=0; i < count; i++){
+		if(!releaseSector(chain[i])){
+			return false;
+		}
+	}
+	return true;
+}
+
+bool releaseDirectoryChain(int first_sector){
+	int chain[NUM_SECTORS];
+	bool visited[NUM_SECTORS] = {false};
+	int count = 0;
+	int current = first_sector;
+
+	while(current != 0 && current != -1){
+		if(current < 0 || current >= NUM_SECTORS || visited[current] || count >= NUM_SECTORS){
+			return false;	
+		}
+		visited[current] = true;
+		
+		for(int i = 0; i < DIRECTORY_ENTRIES; i++){
+			if(sector[current].directory.dir[i].type != TYPE_FREE){
+				return false;
+			}
+		}
+
+		chain[count++] = current;
+		current = sector[current].directory.frwd;
+	}
+
+	for(int i = 0; i < count; i++){
+		if(!releaseSector(chain[i])){
+			return false;
+		}
+	}
+	return true;
+}
+
 void cleanupStorage(void)
 {
     while (free_sector_list != NULL) {
