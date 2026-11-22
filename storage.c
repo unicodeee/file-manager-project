@@ -216,7 +216,13 @@ bool openFile(char mode, const char *name)
 
 void closeFile(void)
 {
+    if(!open_file.is_open){
+	puts("Error: No file is currently open.");
+	return;
+    }
     open_file = (OpenFileState){false, -1, -1, '\0', 0};
+    
+    puts("File closed.");
 }
 
 bool readFile(size_t byte_count)
