@@ -166,7 +166,7 @@ bool openFile(char mode, const char *name)
 
     mode = (char)toupper((unsigned char)mode);
 
-    if(mode != 'R' && != 'W'){
+    if(mode != 'R' && mode != 'W'){
 	puts("Error: Mode must be R (read) or W (write).");
 	return false;
     }
