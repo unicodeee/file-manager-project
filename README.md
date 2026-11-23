@@ -126,8 +126,8 @@ date changes, update it here so everyone sees the same plan.
 
 | Status | Task | Due |
 | --- | --- | --- |
-| 🚧 | Implement the `fgets` command loop and command identification | 2026-11-18 |
-| ❌ | Parse names, modes, byte counts, and all non-`WRITE` command arguments | 2026-11-19 |
+| ✅ | Implement the `fgets` command loop and command identification | 2026-11-18 |
+| ✅ | Parse names, modes, byte counts, and all non-`WRITE` command arguments | 2026-11-19 |
 | ❌ | Parse `WRITE` while preserving spaces and validating the byte count | 2026-11-20 |
 | ❌ | Validate input and add consistent, meaningful error messages | 2026-11-21 |
 | ❌ | Connect every command to the directory and storage modules | 2026-11-23 |
