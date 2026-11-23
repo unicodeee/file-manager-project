@@ -114,9 +114,9 @@ date changes, update it here so everyone sees the same plan.
 | Status | Task | Due |
 | --- | --- | --- |
 | ✅ | Implement the initial `buildList`, `Remove`, and `Insert` operations | 2026-11-16 |
-| ❌ | Add allocation/release helpers and initialize allocated sectors safely | 2026-11-18 |
-| ❌ | Release complete file chains and empty directory chains for `DELETE` | 2026-11-19 |
-| ❌ | Implement `OPEN` and `CLOSE`, including modes and single-open-file checks | 2026-11-20 |
+| ✅ | Add allocation/release helpers and initialize allocated sectors safely | 2026-11-18 |
+| ✅ | Release complete file chains and empty directory chains for `DELETE` | 2026-11-19 |
+| ✅ | Implement `OPEN` and `CLOSE`, including modes and single-open-file checks | 2026-11-20 |
 | ❌ | Implement `READ` across sector boundaries | 2026-11-21 |
 | ❌ | Implement `WRITE`, append behavior, and additional-sector allocation | 2026-11-22 |
 | ❌ | Implement `SEEK` with position validation | 2026-11-22 |
