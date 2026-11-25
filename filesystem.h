@@ -18,7 +18,6 @@ typedef struct {
     char name[MAX_NAME_LENGTH + 1];
     int link;
     short size;
-    short size2;
 } DirectoryEntry;
 
 union block {

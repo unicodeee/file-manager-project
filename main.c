@@ -12,7 +12,9 @@ bool verify_layout(void)
     if (sizeof(int) != 4 || sizeof(DirectoryEntry) != 20 ||
         sizeof(union block) != 512) {
         fprintf(stderr,
-                "Unsupported layout: int=%zu, directory entry=%zu, block=%zu\n",
+                "Unsupported memory layout:\n"
+                "expected int=4, directory entry=20, block=512\n"
+                "\nint=%zu, directory entry=%zu, block=%zu\n",
                 sizeof(int), sizeof(DirectoryEntry), sizeof(union block));
         return false;
     }
