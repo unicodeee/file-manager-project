@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 #define NUM_SECTORS 100
-#define DIRECTORY_ENTRIES 25
+#define NUM_DIRECTORY_ENTRIES 25
 #define DATA_SIZE 504
 #define MAX_NAME_LENGTH 8
 
@@ -18,6 +18,7 @@ typedef struct {
     char name[MAX_NAME_LENGTH + 1];
     int link;
     short size;
+    short size2;
 } DirectoryEntry;
 
 union block {
@@ -25,7 +26,7 @@ union block {
         int back;
         int frwd;
         int free;
-        DirectoryEntry dir[DIRECTORY_ENTRIES];
+        DirectoryEntry dir[NUM_DIRECTORY_ENTRIES];
     } directory;
     struct {
         int backf;

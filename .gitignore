@@ -3,3 +3,4 @@ project
 *.out
 *.dSYM/
 .DS_Store
+.idea/

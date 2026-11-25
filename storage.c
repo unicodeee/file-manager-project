@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
 
 bool buildList(void)
 {
@@ -126,7 +127,7 @@ bool releaseDirectoryChain(int first_sector){
 		}
 		visited[current] = true;
 		
-		for(int i = 0; i < DIRECTORY_ENTRIES; i++){
+		for(int i = 0; i < NUM_DIRECTORY_ENTRIES; i++){
 			if(sector[current].directory.dir[i].type != TYPE_FREE){
 				return false;
 			}
@@ -182,8 +183,8 @@ bool openFile(char mode, const char *name)
 
 	visited[current] = true;
 
-	for(int i=0; i < DIRECTORY_ENTRIES; i++){
-		Directory *entry = &sector[current].directory.dir[i];
+	for(int i=0; i < NUM_DIRECTORY_ENTRIES; i++){
+		DirectoryEntry *entry = &sector[current].directory.dir[i];
 
 		if(entry->type != TYPE_USER_FILE){
 			continue;	

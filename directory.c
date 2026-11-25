@@ -9,9 +9,9 @@ void initDir(int sector_number, int back_sector)
     memset(block, 0, sizeof(*block));
     block->directory.back = back_sector;
     block->directory.frwd = sector_number == 0 ? -1 : 0;
-    block->directory.free = DIRECTORY_ENTRIES;
+    block->directory.free = NUM_DIRECTORY_ENTRIES;
 
-    for (int i = 0; i < DIRECTORY_ENTRIES; ++i) {
+    for (int i = 0; i < NUM_DIRECTORY_ENTRIES; ++i) {
         block->directory.dir[i].type = TYPE_FREE;
     }
 }
