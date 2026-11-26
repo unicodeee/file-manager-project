@@ -16,14 +16,29 @@ void initDir(int sector_number, int back_sector)
     }
 }
 
-int findEntry(int directory_sector, const char *name, int *entry_sector,
+int findEntry(int directory_head_sector, const char *name, int *entry_sector,
               int *entry_index)
-{
-    (void)directory_sector;
-    (void)name;
-    (void)entry_sector;
-    (void)entry_index;
-    return 0; /* TODO(Member 1): search all sectors in the directory chain. */
+{   
+    int current_sector =  directory_head_sector;
+
+    while (1) {
+        DirectoryEntry *entry;
+        for (int i = 0; i < NUM_DIRECTORY_ENTRIES; ++i) {
+            entry = &sector[current_sector].directory.dir[i];
+            if (entry->type != TYPE_FREE && strcasecmp(entry->name, name) == 0){ // if match
+                *entry_sector = current_sector;
+                *entry_index = i;
+
+                return 1;
+            }
+        }
+
+        int next_sector = sector[current_sector].directory.frwd;
+
+        if (next_sector == 0) {break;}
+        current_sector = next_sector;
+    }
+    return 0;
 }
 
 bool createObject(char type, const char *name)
@@ -52,5 +67,5 @@ bool changeDirectory(const char *name)
 
 void goRoot(void)
 {
-    current_directory = 0;
+    CURRENT_DIRECTORY = 0;
 }
