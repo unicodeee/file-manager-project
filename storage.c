@@ -172,7 +172,7 @@ bool openFile(char mode, const char *name)
 	return false;
     }
 
-    int current = current_directory;
+    int current = CURRENT_DIRECTORY;
     bool visited[NUM_SECTORS] = {false};
 
     while(current >= 0 && current < NUM_SECTORS){

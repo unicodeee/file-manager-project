@@ -14,11 +14,11 @@
 #define TYPE_DIRECTORY 'D'
 
 typedef struct {
-    char type;
-    char name[MAX_NAME_LENGTH + 1];
-    int link;
-    short size;
-} DirectoryEntry;
+    char type; // 1
+    char name[MAX_NAME_LENGTH + 1]; // 9
+    int link; // 4
+    short size; // 2
+} DirectoryEntry; // 16 + 4 padding = 20
 
 union block {
     struct {
@@ -35,8 +35,8 @@ union block {
 };
 
 typedef struct nodeType {
-    int info;
-    struct nodeType *link;
+    int info;               // sector number
+    struct nodeType *link;  // next free-sector node
 } nodeType;
 
 typedef struct {
@@ -49,13 +49,14 @@ typedef struct {
 
 extern union block sector[NUM_SECTORS];
 extern nodeType *free_sector_list;
-extern int current_directory;
+extern int CURRENT_DIRECTORY;
 extern OpenFileState open_file;
 
 bool verify_layout(void);
 bool initDisk(void);
 void initDir(int sector_number, int back_sector);
 
+// directory.c
 int findEntry(int directory_sector, const char *name, int *entry_sector,
               int *entry_index);
 bool createObject(char type, const char *name);
@@ -79,6 +80,7 @@ bool readFile(size_t byte_count);
 bool writeFile(size_t byte_count, const char *data);
 bool seekFile(size_t position);
 
+// commands.c
 bool runCommandArgs(int argc, char *argv[]);
 void runCommandLoop(void);
 

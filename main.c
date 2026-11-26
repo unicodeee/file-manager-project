@@ -4,7 +4,7 @@
 
 union block sector[NUM_SECTORS];
 nodeType *free_sector_list = NULL;
-int current_directory = 0;
+int CURRENT_DIRECTORY = 0;
 OpenFileState open_file = {false, -1, -1, '\0', 0};
 
 bool verify_layout(void)
@@ -25,7 +25,7 @@ bool verify_layout(void)
 bool initDisk(void)
 {
     initDir(0, -1);
-    current_directory = 0;
+    CURRENT_DIRECTORY = 0;
     open_file = (OpenFileState){false, -1, -1, '\0', 0};
     return buildList();
 }
