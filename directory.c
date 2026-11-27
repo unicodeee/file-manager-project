@@ -1,5 +1,5 @@
 #include "filesystem.h"
-
+#include <stdio.h>
 #include <string.h>
 
 void initDir(int sector_number, int back_sector)
@@ -42,14 +42,14 @@ int findEntry(int directory_head_sector, const char *name, int *entry_sector,
 }
 
 
-int findAvailableEntryInDirectory(int current_directory, DirectoryEntry *entry) {
+DirectoryEntry *findAvailableEntryInDirectory(int current_directory) {
     for (int i = 0; i < NUM_DIRECTORY_ENTRIES; ++i) {
-        if (strcasecmp(sector[current_directory].directory.dir[i].type, TYPE_FREE) == 0) {
-            entry = &sector[current_directory].directory.dir[i];
-            return 0;
+        DirectoryEntry *pEntry = &sector[current_directory].directory.dir[i];
+        if (pEntry->type == TYPE_FREE) {
+            return pEntry;
         }
     }
-    return 1; // none available in current sector
+    return NULL; // none available in current sector
 }
 
 bool createObject(char type, const char *name)
@@ -60,8 +60,8 @@ bool createObject(char type, const char *name)
         return 0;
     }
 
-    DirectoryEntry *entry;
-    if (findAvailableEntryInDirectory(CURRENT_DIRECTORY, entry) != 0) {
+    DirectoryEntry *entry = findAvailableEntryInDirectory(CURRENT_DIRECTORY);
+    if (entry == NULL) {
         return false;
     }
     switch (type){
@@ -72,7 +72,7 @@ bool createObject(char type, const char *name)
             entry->size = 0;          
             break;
         case TYPE_USER_FILE:
-            entry->size = TYPE_USER_FILE;
+            entry->type = TYPE_USER_FILE;
             strcpy(entry->name, name);
             entry->link = 0; //file is empty and has no allocated data sector.
             entry->size = 0;   
