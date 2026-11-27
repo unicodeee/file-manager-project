@@ -174,14 +174,16 @@ static bool executeCommand(int argc, char *argv[])
 
     switch (command->id) {
 
-    case CMD_LS:
-    if (argc != 3) {
-        printUsage(command);
-    } else if (parseLetter(argv[1], "UD", "type", &letter) &&
-                parseName(argv[2], &name)) {
-        createObject(letter, name);
-    }
-    break;
+    case CMD_LIST:
+        if (argc != 1) {
+            printUsage(command);
+        } 
+        // list objects
+        for (int i = 0; i < 25; i++) {   // TO DO: change to print name only to match ls usecase.
+            DirectoryEntry entry = sector[CURRENT_DIRECTORY].directory.dir[i];
+            printf("%d\t|%c|%s|%d|%d|\n", i, entry.type, entry.name, entry.link, entry.size);
+        }
+        break;
 
     case CMD_CREATE:
         if (argc != 3) {
