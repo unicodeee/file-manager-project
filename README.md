@@ -103,9 +103,9 @@ date changes, update it here so everyone sees the same plan.
 | ✅ | Define the shared structures, union, constants, globals, and prototypes | 2026-11-16 |
 | ✅ | Verify structure sizes and initialize the root directory | 2026-11-16 |
 | ✅ | Implement directory-chain search and locate entries by name | 2026-11-17 |
-| ❌ | Implement adding and removing directory entries and maintain `free` | 2026-11-18 |
-| ❌ | Extend a directory past 25 entries using `back` and `frwd` links | 2026-11-19 |
-| ❌ | Implement `CREATE U` and `CREATE D`, including duplicate-name checks | 2026-11-19 |
+| ✅ | Implement adding and removing directory entries and maintain `free` | 2026-11-18 |
+| ✅ | Extend a directory past 25 entries using `back` and `frwd` links | 2026-11-19 |
+| ✅ | Implement `CREATE U` and `CREATE D`, including duplicate-name checks | 2026-11-19 |
 | ❌ | Implement `DIR`, `CD`, and `ROOT` | 2026-11-20 |
 | ❌ | Test regular files, subdirectories, nested navigation, and full directories | 2026-11-21 |
 

@@ -178,7 +178,7 @@ static bool executeCommand(int argc, char *argv[])
         if (argc != 1) {
             printUsage(command);
         } 
-        listDirectory();
+        listDirectoryChain();
         break;
 
     case CMD_CREATE:
@@ -186,7 +186,7 @@ static bool executeCommand(int argc, char *argv[])
             printUsage(command);
         } else if (parseLetter(argv[1], "UD", "type", &letter) &&
                    parseName(argv[2], &name)) {
-            createObject(letter, name);
+            createObject(letter, name, CURRENT_DIRECTORY);
         }
         break;
 
@@ -244,7 +244,7 @@ static bool executeCommand(int argc, char *argv[])
         if (argc != 1) {
             printUsage(command);
         } else {
-            listDirectory();
+            listDirectoryChain();
         }
         break;
 

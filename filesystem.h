@@ -59,9 +59,9 @@ void initDir(int sector_number, int back_sector);
 // directory.c
 int findEntry(int directory_sector, const char *name, int *entry_sector,
               int *entry_index);
-bool createObject(char type, const char *name);
+bool createObject(char type, const char *name, int directory);
 bool deleteObject(const char *name);
-void listDirectory(void);
+void listDirectoryChain(void);
 bool changeDirectory(const char *name);
 void goRoot(void);
 

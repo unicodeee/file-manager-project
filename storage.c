@@ -9,7 +9,7 @@ bool buildList(void)
 {
     cleanupStorage();
 
-    for (int number = NUM_SECTORS - 1; number >= 1; --number) {
+    for (int number = NUM_SECTORS - 1; number >= 1; --number) { // sectors 1 - 99
         nodeType *node = malloc(sizeof(*node));
         if (node == NULL) {
             cleanupStorage();
