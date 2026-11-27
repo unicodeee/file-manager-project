@@ -4,3 +4,4 @@ project
 *.dSYM/
 .DS_Store
 .idea/
+.vscode/
