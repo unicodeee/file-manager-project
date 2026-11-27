@@ -41,10 +41,43 @@ int findEntry(int directory_head_sector, const char *name, int *entry_sector,
     return 0;
 }
 
+
+int findAvailableEntryInDirectory(int current_directory, DirectoryEntry *entry) {
+    for (int i = 0; i < NUM_DIRECTORY_ENTRIES; ++i) {
+        if (strcasecmp(sector[current_directory].directory.dir[i].type, TYPE_FREE) == 0) {
+            entry = &sector[current_directory].directory.dir[i];
+            return 0;
+        }
+    }
+    return 1; // none available in current sector
+}
+
 bool createObject(char type, const char *name)
-{
-    (void)type;
-    (void)name;
+{   
+    size_t name_length = strlen(name);
+    if (name_length > MAX_NAME_LENGTH) {
+        printf("Error: object name is too long: %zu\n", name_length);
+        return 0;
+    }
+
+    DirectoryEntry *entry;
+    if (findAvailableEntryInDirectory(CURRENT_DIRECTORY, entry) != 0) {
+        return false;
+    }
+    switch (type){
+        case TYPE_DIRECTORY:
+            entry->type = TYPE_DIRECTORY;
+            strcpy(entry->name, name);
+            entry->link = 0;
+            entry->size = 0;          
+            break;
+        case TYPE_USER_FILE:
+            entry->size = TYPE_USER_FILE;
+            strcpy(entry->name, name);
+            entry->link = 0; //file is empty and has no allocated data sector.
+            entry->size = 0;   
+            break;
+    }
     return false; /* TODO(Member 1): implement CREATE U and CREATE D. */
 }
 
