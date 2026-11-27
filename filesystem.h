@@ -48,7 +48,7 @@ typedef struct {
 } OpenFileState;
 
 extern union block sector[NUM_SECTORS];
-extern nodeType *free_sector_list;
+extern nodeType *FREE_SECTOR_LIST;
 extern int CURRENT_DIRECTORY;
 extern OpenFileState open_file;
 

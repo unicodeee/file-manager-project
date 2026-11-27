@@ -17,8 +17,8 @@ bool buildList(void)
         }
 
         node->info = number;
-        node->link = free_sector_list;
-        free_sector_list = node;
+        node->link = FREE_SECTOR_LIST;
+        FREE_SECTOR_LIST = node;
     }
 
     return true;
@@ -26,13 +26,13 @@ bool buildList(void)
 
 int Remove(void)
 {
-    if (free_sector_list == NULL) {
+    if (FREE_SECTOR_LIST == NULL) {
         return -1;
     }
 
-    nodeType *removed = free_sector_list;
+    nodeType *removed = FREE_SECTOR_LIST;
     const int sector_number = removed->info;
-    free_sector_list = removed->link;
+    FREE_SECTOR_LIST = removed->link;
     free(removed);
     return sector_number;
 }
@@ -43,7 +43,7 @@ bool Insert(int sector_number)
         return false;
     }
 
-    for (nodeType *node = free_sector_list; node != NULL; node = node->link) {
+    for (nodeType *node = FREE_SECTOR_LIST; node != NULL; node = node->link) {
         if (node->info == sector_number) {
             return false;
         }
@@ -55,8 +55,8 @@ bool Insert(int sector_number)
     }
 
     node->info = sector_number;
-    node->link = free_sector_list;
-    free_sector_list = node;
+    node->link = FREE_SECTOR_LIST;
+    FREE_SECTOR_LIST = node;
     return true;
 }
 
@@ -78,7 +78,7 @@ int allocateSector(void){
 bool releaseSector(int sector_number){
 	if(sector_number <= 0 || sector_number >= NUM_SECTORS){
 		return false;
-	}
+	} 
 
 	if(!Insert(sector_number)){
 		return false;
@@ -147,9 +147,9 @@ bool releaseDirectoryChain(int first_sector){
 
 void cleanupStorage(void)
 {
-    while (free_sector_list != NULL) {
-        nodeType *removed = free_sector_list;
-        free_sector_list = removed->link;
+    while (FREE_SECTOR_LIST != NULL) {
+        nodeType *removed = FREE_SECTOR_LIST;
+        FREE_SECTOR_LIST = removed->link;
         free(removed);
     }
 }

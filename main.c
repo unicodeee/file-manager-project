@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 union block sector[NUM_SECTORS];
-nodeType *free_sector_list = NULL;
+nodeType *FREE_SECTOR_LIST = NULL;
 int CURRENT_DIRECTORY = 0;
 OpenFileState open_file = {false, -1, -1, '\0', 0};
 
