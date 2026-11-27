@@ -22,7 +22,8 @@ typedef enum {
     CMD_DIR,
     CMD_CD,
     CMD_ROOT,
-    CMD_EXIT
+    CMD_EXIT,
+    CMD_LIST,
 } CommandId;
 
 typedef struct {
@@ -42,6 +43,7 @@ static const CommandInfo COMMANDS[] = {
     {"dir", CMD_DIR, "dir"},
     {"cd", CMD_CD, "cd <name>"},
     {"root", CMD_ROOT, "root"},
+    {"ls", CMD_LIST, "list"},
     {"exit", CMD_EXIT, "exit"},
 };
 
@@ -171,6 +173,16 @@ static bool executeCommand(int argc, char *argv[])
     }
 
     switch (command->id) {
+
+    case CMD_LS:
+    if (argc != 3) {
+        printUsage(command);
+    } else if (parseLetter(argv[1], "UD", "type", &letter) &&
+                parseName(argv[2], &name)) {
+        createObject(letter, name);
+    }
+    break;
+
     case CMD_CREATE:
         if (argc != 3) {
             printUsage(command);
