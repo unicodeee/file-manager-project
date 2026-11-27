@@ -178,11 +178,7 @@ static bool executeCommand(int argc, char *argv[])
         if (argc != 1) {
             printUsage(command);
         } 
-        // list objects
-        for (int i = 0; i < 25; i++) {   // TO DO: change to print name only to match ls usecase.
-            DirectoryEntry entry = sector[CURRENT_DIRECTORY].directory.dir[i];
-            printf("%d\t|%c|%s|%d|%d|\n", i, entry.type, entry.name, entry.link, entry.size);
-        }
+        listDirectory();
         break;
 
     case CMD_CREATE:

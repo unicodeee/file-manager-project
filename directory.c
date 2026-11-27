@@ -90,6 +90,14 @@ bool deleteObject(const char *name)
 void listDirectory(void)
 {
     /* TODO(Member 1): print occupied entries across the directory chain. */
+    // list objects
+    for (int i = 0; i < 25; i++) {   // TO DO: change to print name only to match ls usecase.
+        if (sector[CURRENT_DIRECTORY].directory.dir[i].type == TYPE_FREE) {
+            continue;
+        }
+        DirectoryEntry entry = sector[CURRENT_DIRECTORY].directory.dir[i];
+        printf("%d\t|%c|%s|%d|%d|\n", i, entry.type, entry.name, entry.link, entry.size);
+    }
 }
 
 bool changeDirectory(const char *name)
