@@ -106,8 +106,8 @@ date changes, update it here so everyone sees the same plan.
 | ✅ | Implement adding and removing directory entries and maintain `free` | 2026-11-18 |
 | ✅ | Extend a directory past 25 entries using `back` and `frwd` links | 2026-11-19 |
 | ✅ | Implement `CREATE U` and `CREATE D`, including duplicate-name checks | 2026-11-19 |
-| ❌ | Implement `DIR`, `CD`, and `ROOT` | 2026-11-20 |
-| ❌ | Test regular files, subdirectories, nested navigation, and full directories | 2026-11-21 |
+| ✅ | Implement `DIR`, `CD`, and `ROOT` | 2026-11-20 |
+| ✅ | Test regular files, subdirectories, nested navigation, and full directories | 2026-11-21 |
 
 ### Member 2 — free sectors and file operations
 
