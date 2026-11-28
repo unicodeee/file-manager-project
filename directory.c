@@ -154,12 +154,22 @@ bool deleteObject(const char *name)
 
 void listDirectory(int directory)
 {
+    bool headerPrinted = false;
+
     for (int i = 0; i < NUM_DIRECTORY_ENTRIES; ++i) {
         DirectoryEntry entry = sector[directory].directory.dir[i];
         if (entry.type == TYPE_FREE) {
             continue;
         }
-        printf("%d\t|%c|%s|%d|%d|\n", i, entry.type, entry.name, entry.link, entry.size);
+
+        if (!headerPrinted) {
+            printf("%-5s | %-4s | %-10s | %-6s | %-6s\n", "Index", "Type", "Name", "Link", "Size");
+            printf("------+------+------------+--------+-------\n");
+            headerPrinted = true;
+        }
+        
+        printf("%-5d | %-4c | %-10s | %6d | %6hd\n", 
+               i, entry.type, entry.name, entry.link, entry.size);
     }
 }
 
