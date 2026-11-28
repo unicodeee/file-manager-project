@@ -174,8 +174,22 @@ void listDirectoryChain(void)
 
 bool changeDirectory(const char *name)
 {
-    (void)name;
-    return false; /* TODO(Member 1): implement CD. */
+    union block *curr = &sector[CURRENT_DIRECTORY];
+    
+    if (strcmp(name, "..") == 0 && CURRENT_DIRECTORY != 0) {
+        CURRENT_DIRECTORY = curr->directory.back;
+        return true;
+    }
+
+    for (int i = 0; i < NUM_DIRECTORY_ENTRIES; ++i) {
+        DirectoryEntry entry = sector[CURRENT_DIRECTORY].directory.dir[i];
+        if (entry.type == TYPE_DIRECTORY && strcmp(entry.name, name) == 0) {
+            CURRENT_DIRECTORY = entry.link;
+            return true;
+        }  
+    }
+    printf("Directory %s doesn't exist.\n", name);
+    return true; /* TODO(Member 1): implement CD. */
 }
 
 void goRoot(void)
